@@ -65,6 +65,10 @@ function Player:draw()
     for _, bullet in ipairs(self.bullets) do
         bullet:draw()
     end
+
+    -- Clamp the player to specified area
+    self.x = Clamp(self.x, player_bounds.x, player_bounds.x + player_bounds.width - self.width)
+    self.y = Clamp(self.y, player_bounds.y, player_bounds.y + player_bounds.height - self.height)
 end
 
 function Player:handleInput(dt)
@@ -81,10 +85,6 @@ function Player:handleInput(dt)
         self.x = self.x + self.speed * dt
     end
     
-    -- Clamp the player to specified area
-    self.x = Clamp(self.x, player_bounds.x, player_bounds.x + player_bounds.width - self.width)
-    self.y = Clamp(self.y, player_bounds.y, player_bounds.y + player_bounds.height - self.height)
-
     -- Shoot
     if love.keyboard.isDown("space") and self.timeSinceLastShot >= self.fireCooldown then
         self:shoot()
