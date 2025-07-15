@@ -36,7 +36,6 @@ function Player:new(x, y)
         fireCooldown = 0.2,
         timeSinceLastShot = 0,
         health = 3,
-        color = { r = 1, g = 1, b = 1 }
     }
     setmetatable(obj, self)
     return obj

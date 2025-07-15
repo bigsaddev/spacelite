@@ -20,20 +20,15 @@ end
 
 function Game:draw()
     self.player:draw()
+
+    -- Draws the enemies in waves
     self.wm:drawWave()
+    
+    -- Draws the wave information
+    self.wm:drawHud()
+    
     -- Debug purpose
     love.graphics.print("Wave Paused? " .. tostring(self.wm.wavePaused), 5, 20)
-    
-    -- Clean this up somewhere else
-    if self.wm.wavePaused then
-        local readyLength = GameFont:getWidth("Ready? Press [R] to start")
-        love.graphics.print("Ready? Press [R] to start!", love.graphics.getWidth()/2-readyLength/2, 10)
-    end
-
-    if not self.wm.wavePaused then
-        local waveTimerLength = GameFont:getWidth("Next Wave in: " .. math.floor(self.wm.waveTimer))
-        love.graphics.print("Next Wave in: " .. math.floor(self.wm.waveTimer), love.graphics.getWidth()/2-waveTimerLength/2, 40)
-    end
 end
 
 function Game:keypressed(key)

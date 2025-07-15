@@ -3,16 +3,16 @@
 local Enemy = {}
 Enemy.__index = Enemy
 
-function Enemy:new(x, y)
+function Enemy:new(x, y, w, h)
     local obj = {
         x = x or 0,
         y = y or 0,
         speed = 200,
-        width = 32,
-        height = 32,
-        color = { 1, 0, 1 },
+        width = w or 32,
+        height = h or 32,
+        sprite = love.graphics.newImage("assets/sprites/enemy1.png"),
         isDead = false,
-        health = 3
+        health = 1
     }
     setmetatable(obj, self)
     return obj
@@ -24,9 +24,7 @@ end
 
 function Enemy:draw()
     if not self.isDead then
-        love.graphics.setColor(self.color)
-        love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
-        love.graphics.setColor(1, 1, 1)
+        love.graphics.draw(self.sprite, self.x, self.y)
     end
 end
 

@@ -1,3 +1,5 @@
+local Util = require("src.util")
+
 local Bullet = {}
 Bullet.__index = Bullet
 
@@ -23,7 +25,7 @@ function Bullet:update(dt, enemies)
     end
 
     for _, enemy in ipairs(enemies) do
-        if not enemy.isDead and self:collidesWidth(enemy) then
+        if not enemy.isDead and Util.collidesWithRect(self, enemy) then
             self.isDead = true
             enemy:takeDamage(self.damage)
             break
@@ -33,13 +35,6 @@ end
 
 function Bullet:draw()
     love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
-end
-
-function Bullet:collidesWidth(other)
-    return self.x < other.x + other.width and
-        self.x + self.width > other.x and
-        self.y < other.y + other.height and
-        self.y + self.height > other.y
 end
 
 return Bullet
