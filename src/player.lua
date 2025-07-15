@@ -33,6 +33,7 @@ function Player:new(x, y)
         bulletSpeed = 500,
         fireCooldown = 0.2,
         timeSinceLastShot = 0,
+        health = 3,
         color = { r = 1, g = 1, b = 1 }
     }
     setmetatable(obj, self)
@@ -94,6 +95,7 @@ end
 
 function Player:drawHud()
     love.graphics.rectangle("line", player_hud.x, player_hud.y, player_hud.width, player_hud.height)
+    love.graphics.print("Health: " .. self.health, player_hud.x + 10, player_hud.y + 10)
 end
 
 function Player:shoot()

@@ -12,7 +12,7 @@ function Enemy:new(x, y)
         height = 32,
         color = { 1, 0, 1 },
         isDead = false,
-        health = 1
+        health = 3
     }
     setmetatable(obj, self)
     return obj

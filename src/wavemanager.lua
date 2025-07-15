@@ -6,8 +6,7 @@ WaveManager.__index = WaveManager
 
 function WaveManager:new()
     local obj = {
-        waveTimer = 0,
-        waveDelay = 10,
+        waveTimer = 10,
         currentWave = 0,
         enemies = {}, -- DO NOT FORGET THIS, THIS BISH BE MANAGING YOUR ENEMIES
         wavePaused = true
@@ -31,20 +30,23 @@ function WaveManager:updateWave(dt)
         local enemy = self.enemies[i]
         enemy:update(dt)
 
-        -- Remove enemies off screen (optional)
+        -- Remove enemies off screen
         if enemy.x + enemy.width < 0 then
             table.remove(self.enemies, i)
         end
     end
 
+
+    -- decrease timer, counting up was weird
     if not self.wavePaused and #self.enemies == 0 then
-        self.waveTimer = self.waveTimer + dt
-        if self.waveTimer >= self.waveDelay then
-            self.waveTimer = 0
+        self.waveTimer = self.waveTimer - dt
+        if self.waveTimer <= 0 then
+            self.waveTimer = 10
             self:spawnWave(3 + self.currentWave) -- increase count each wave
         end
     end
 
+    -- delete dead enemies from the table
     for i = #self.enemies, 1, -1 do
         if self.enemies[i].isDead then
             table.remove(self.enemies, i)
@@ -57,18 +59,17 @@ function WaveManager:drawWave()
         enemy:draw()
     end
 
-    love.graphics.print("Wave: " .. self.currentWave, 10, 10)
+    love.graphics.print("Wave: " .. self.currentWave, 5, 0)
 end
 
 function WaveManager:startWaves()
     self.wavePaused = false
-    self.waveTimer = 0
-    self:spawnWave(10) -- start first wave immediately if you want
+    self.waveTimer = 10
 end
 
 function WaveManager:stopWaves()
     self.wavePaused = true
-    self.waveTimer = 0
+    self.waveTimer = 10
 end
 
 function WaveManager:getEnemies()

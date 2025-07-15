@@ -8,7 +8,8 @@ function Bullet:new(x, y, speed)
         width = 10,
         height = 4,
         speed = speed,
-        isDead = false
+        isDead = false,
+        damage = 1
     }
     setmetatable(obj, Bullet)
     return obj
@@ -24,7 +25,7 @@ function Bullet:update(dt, enemies)
     for _, enemy in ipairs(enemies) do
         if not enemy.isDead and self:collidesWidth(enemy) then
             self.isDead = true
-            enemy:takeDamage(1)
+            enemy:takeDamage(self.damage)
             break
         end
     end
