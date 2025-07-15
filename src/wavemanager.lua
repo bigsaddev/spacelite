@@ -9,7 +9,7 @@ function WaveManager:new()
         waveTimer = 0,
         waveDelay = 10,
         currentWave = 0,
-        enemies = {},
+        enemies = {}, -- DO NOT FORGET THIS, THIS BISH BE MANAGING YOUR ENEMIES
         wavePaused = true
     }
     setmetatable(obj, self)
@@ -42,6 +42,12 @@ function WaveManager:updateWave(dt)
         if self.waveTimer >= self.waveDelay then
             self.waveTimer = 0
             self:spawnWave(3 + self.currentWave) -- increase count each wave
+        end
+    end
+
+    for i = #self.enemies, 1, -1 do
+        if self.enemies[i].isDead then
+            table.remove(self.enemies, i)
         end
     end
 end

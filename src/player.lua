@@ -1,4 +1,6 @@
 -- src/player.lua
+local Bullet = require("src.bullet")
+
 local function Clamp(val, min, max)
     return math.max(min, math.min(val, max))
 end
@@ -37,15 +39,15 @@ function Player:new(x, y)
     return obj
 end
 
-function Player:update(dt)
+function Player:update(dt, enemies)
     self:handleInput(dt)
 
     self.timeSinceLastShot = self.timeSinceLastShot + dt
 
     for i = #self.bullets, 1, -1 do
         local bullet = self.bullets[i]
-        bullet.x = bullet.x + self.bulletSpeed * dt
-        if bullet.x + bullet.width > love.graphics.getWidth() then
+        bullet:update(dt, enemies)
+        if bullet.isDead then
             table.remove(self.bullets, i)
         end
     end
@@ -61,7 +63,7 @@ function Player:draw()
     -- love.graphics.rectangle("line", player_bounds.x, player_bounds.y, player_bounds.width, player_bounds.height)
 
     for _, bullet in ipairs(self.bullets) do
-    love.graphics.rectangle("fill", bullet.x, bullet.y, bullet.width, bullet.height)
+        bullet:draw()
     end
 end
 
@@ -95,13 +97,9 @@ function Player:drawHud()
 end
 
 function Player:shoot()
-    local bullet = {
-        x = self.x + self.width - 8,
-        y = self.y + self.height / 2 - 2,
-        width = 10,
-        height = 4
-    }
-    table.insert(self.bullets, bullet)
+    local bulletX = self.x + self.width - 8
+    local bulletY = self.y + self.height / 2 - 2
+    table.insert(self.bullets, Bullet:new(bulletX, bulletY, self.bulletSpeed))
 end
 
 return Player

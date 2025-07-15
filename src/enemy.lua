@@ -10,7 +10,9 @@ function Enemy:new(x, y)
         speed = 200,
         width = 32,
         height = 32,
-        color = { 1, 0, 1 }
+        color = { 1, 0, 1 },
+        isDead = false,
+        health = 1
     }
     setmetatable(obj, self)
     return obj
@@ -21,9 +23,18 @@ function Enemy:update(dt)
 end
 
 function Enemy:draw()
-    love.graphics.setColor(self.color)
-    love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
-    love.graphics.setColor(1, 1, 1)
+    if not self.isDead then
+        love.graphics.setColor(self.color)
+        love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
+        love.graphics.setColor(1, 1, 1)
+    end
+end
+
+function Enemy:takeDamage(amount)
+    self.health = self.health - amount
+    if self.health <= 0 then
+        self.isDead = true
+    end
 end
 
 return Enemy

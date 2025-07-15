@@ -12,7 +12,7 @@ function Game:load()
 end
 
 function Game:update(dt)
-    self.player:update(dt)
+    self.player:update(dt, self.wm.enemies)
     self.wm:updateWave(dt)
 end
 
@@ -26,6 +26,9 @@ function Game:keypressed(key)
     if key == "return" then -- press Enter to start waves
         self.wm:startWaves()
     end
-end
+    if key == "escape" then
+        love.event.quit()
+    end
+ end
 
 return Game
