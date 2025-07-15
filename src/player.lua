@@ -38,7 +38,7 @@ function Player:new(x, y)
         timeSinceLastShot = 0,
         health = 3,
     }
-    setmetatable(obj, self)
+    setmetatable(obj, Player)
     return obj
 end
 
@@ -101,6 +101,10 @@ function Player:shoot()
     local bulletX = self.x + self.width - 8
     local bulletY = self.y + self.height / 2 - 2
     table.insert(self.bullets, Bullet:new(bulletX, bulletY, self.bulletSpeed))
+end
+
+function Player:takeDamage(amount)
+    self.health = self.health - amount
 end
 
 return Player

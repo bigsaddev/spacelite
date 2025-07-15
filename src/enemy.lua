@@ -7,7 +7,7 @@ function Enemy:new(x, y, w, h)
     local obj = {
         x = x or 0,
         y = y or 0,
-        speed = 200,
+        speed = 600,
         width = w or 32,
         height = h or 32,
         sprite = love.graphics.newImage("assets/sprites/enemy1.png"),

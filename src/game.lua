@@ -15,10 +15,11 @@ end
 
 function Game:update(dt)
     self.player:update(dt, self.wm.enemies)
-    self.wm:updateWave(dt)
+    self.wm:updateWave(dt, self.player)
 end
 
 function Game:draw()
+    love.graphics.setBackgroundColor(0.1, 0.1, 0.1)
     self.player:draw()
 
     -- Draws the enemies in waves

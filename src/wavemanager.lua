@@ -25,18 +25,29 @@ function WaveManager:spawnWave(count)
     self.currentWave = self.currentWave + 1
 end
 
-function WaveManager:updateWave(dt)
+function WaveManager:updateWave(dt, player)
     for i = #self.enemies, 1, -1 do
         local enemy = self.enemies[i]
-        enemy:update(dt)
+        
+        if enemy then
+            enemy:update(dt)
+            
+            local removeEnemy = false
 
-        -- Remove off screen enemies
-        if enemy.x + enemy.width < 0 then
-            table.remove(self.enemies, i)
-        end
-
-        -- Remove dead enemies
-        if self.enemies[i].isDead then
+            -- Remove off screen enemies and damage player
+            if enemy.x + enemy.width < 0 then
+                player:takeDamage(1)
+                removeEnemy = true
+            -- Remove dead enemies
+            elseif enemy.isDead then
+                removeEnemy = true
+            end
+            
+            if removeEnemy then
+                table.remove(self.enemies, i)
+            end
+        else
+            print("Warning: enemy at index " .. i .. " is nil!")
             table.remove(self.enemies, i)
         end
     end
@@ -76,12 +87,12 @@ end
 function WaveManager:drawHud()
     if self.wavePaused then
         local readyLength = GameFont:getWidth("Ready? Press [R] to start")
-        love.graphics.print("Ready? Press [R] to start!", util.halfWindowWidthwindowWidth - readyLength / 2, 10)
+        love.graphics.print("Ready? Press [R] to start!", util.halfWindowWidth - readyLength / 2, 10)
     end
 
     if not self.wavePaused then
         local waveTimerLength = GameFont:getWidth("Next Wave in: " .. math.floor(self.waveTimer))
-        love.graphics.print("Next Wave in: " .. math.floor(self.waveTimer), util.halfWindowWidthwindowWidth - waveTimerLength / 2, 40)
+        love.graphics.print("Next Wave in: " .. math.floor(self.waveTimer), util.halfWindowWidth - waveTimerLength / 2, 40)
     end
 end
 
