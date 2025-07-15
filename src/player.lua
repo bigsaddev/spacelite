@@ -29,6 +29,8 @@ function Player:new(x, y)
         speed = 300,
         width = 32,
         height = 32,
+        sprite = love.graphics.newImage("assets/sprites/player.png"),
+        scale = 1,
         bullets = {},
         bulletSpeed = 500,
         fireCooldown = 0.2,
@@ -56,10 +58,7 @@ end
 
 function Player:draw()
     self:drawHud()
-    love.graphics.setColor(self.color.r, self.color.g, self.color.b)
-    love.graphics.rectangle("line", self.x, self.y, self.width, self.height)
-    love.graphics.setColor(1, 1, 1) -- reset color to white
-
+    love.graphics.draw(self.sprite, self.x, self.y, 0, self.scale)
     -- player bounds for debugging
     -- love.graphics.rectangle("line", player_bounds.x, player_bounds.y, player_bounds.width, player_bounds.height)
 
