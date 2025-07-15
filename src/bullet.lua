@@ -1,4 +1,4 @@
-local Util = require("src.util")
+local util = require("src.util")
 
 local Bullet = {}
 Bullet.__index = Bullet
@@ -19,13 +19,13 @@ end
 
 function Bullet:update(dt, enemies)
     self.x = self.x + self.speed * dt
-    if self.x > love.graphics.getWidth() then
+    if self.x > util.windowWidth then
         self.isDead = true
         return
     end
 
     for _, enemy in ipairs(enemies) do
-        if not enemy.isDead and Util.collidesWithRect(self, enemy) then
+        if not enemy.isDead and util.collidesWithRect(self, enemy) then
             self.isDead = true
             enemy:takeDamage(self.damage)
             break

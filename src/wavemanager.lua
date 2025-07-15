@@ -1,5 +1,6 @@
 -- src/wavemanager.lua
 local Enemy = require("src.enemy")
+local util  = require("src.util")
 
 local WaveManager = {}
 WaveManager.__index = WaveManager
@@ -17,8 +18,8 @@ end
 
 function WaveManager:spawnWave(count)
     for i = 1, count do
-        local x = love.math.random(love.graphics.getWidth(), love.graphics.getWidth() + 500)
-        local y = love.math.random(0, love.graphics.getHeight() - 100)
+        local x = love.math.random(util.windowWidth, util.windowWidth + 500)
+        local y = love.math.random(0, util.windowHeight - 100)
         table.insert(self.enemies, Enemy:new(x, y))
     end
     self.currentWave = self.currentWave + 1
@@ -75,12 +76,12 @@ end
 function WaveManager:drawHud()
     if self.wavePaused then
         local readyLength = GameFont:getWidth("Ready? Press [R] to start")
-        love.graphics.print("Ready? Press [R] to start!", love.graphics.getWidth()/2-readyLength/2, 10)
+        love.graphics.print("Ready? Press [R] to start!", util.halfWindowWidthwindowWidth - readyLength / 2, 10)
     end
 
     if not self.wavePaused then
         local waveTimerLength = GameFont:getWidth("Next Wave in: " .. math.floor(self.waveTimer))
-        love.graphics.print("Next Wave in: " .. math.floor(self.waveTimer), love.graphics.getWidth()/2-waveTimerLength/2, 40)
+        love.graphics.print("Next Wave in: " .. math.floor(self.waveTimer), util.halfWindowWidthwindowWidth - waveTimerLength / 2, 40)
     end
 end
 

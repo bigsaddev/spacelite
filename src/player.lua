@@ -1,5 +1,6 @@
 -- src/player.lua
 local Bullet = require("src.bullet")
+local util   = require("src.util")
 
 local function Clamp(val, min, max)
     return math.max(min, math.min(val, max))
@@ -12,13 +13,13 @@ local player_bounds = {
     x = 0,
     y = 0,
     width = 400,
-    height = love.graphics.getHeight() - 50
+    height = util.windowHeight - 50
 }
 
 local player_hud = {
     x = 1,
-    y = love.graphics.getHeight() - 50,
-    width = love.graphics.getWidth() - 1,
+    y = util.windowHeight - 50,
+    width = util.windowWidth - 1,
     height = 50
 }
 

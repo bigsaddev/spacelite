@@ -1,4 +1,9 @@
-local Util = {}
+local Util = {
+    windowWidth = love.graphics.getWidth(),
+    windowHeight = love.graphics.getHeight(),
+    halfWindowWidth = love.graphics.getWidth() / 2,
+    halfWindowHeight = love.graphics.getHeight() / 2
+}
 
 function Util.collidesWithRect(obj, obj2)
     return obj.x < obj2.x + obj2.width and
