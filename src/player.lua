@@ -2,10 +2,6 @@
 local Bullet = require("src.bullet")
 local util   = require("src.util")
 
-local function Clamp(val, min, max)
-    return math.max(min, math.min(val, max))
-end
-
 local Player = {}
 Player.__index = Player
 
@@ -67,8 +63,8 @@ function Player:draw()
     end
 
     -- Clamp the player to specified area
-    self.x = Clamp(self.x, player_bounds.x, player_bounds.x + player_bounds.width - self.width)
-    self.y = Clamp(self.y, player_bounds.y, player_bounds.y + player_bounds.height - self.height)
+    self.x = util.Clamp(self.x, player_bounds.x, player_bounds.x + player_bounds.width - self.width)
+    self.y = util.Clamp(self.y, player_bounds.y, player_bounds.y + player_bounds.height - self.height)
 end
 
 function Player:handleInput(dt)

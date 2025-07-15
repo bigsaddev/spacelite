@@ -12,4 +12,8 @@ function Util.collidesWithRect(obj, obj2)
         obj.y + obj.height > obj2.y
 end
 
+function Util.Clamp(val, min, max)
+    return math.max(min, math.min(val, max))
+end
+
 return Util
