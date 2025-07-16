@@ -30,7 +30,6 @@ function Game:draw()
     
     -- Debug purpose
     --love.graphics.print("Wave Paused? " .. tostring(self.wm.wavePaused), 5, 20)
-    --love.graphics.print("Enemies: " .. tostring(#self.wm:getEnemies()), 5, 40)
 end
 
 function Game:keypressed(key)

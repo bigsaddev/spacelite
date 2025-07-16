@@ -91,7 +91,14 @@ end
 
 function Player:drawHud()
     love.graphics.rectangle("line", player_hud.x, player_hud.y, player_hud.width, player_hud.height)
+    
+    love.graphics.setColor(0, 1, 0)
+    local healthWidth = GameFont:getWidth("Health: " .. self.health)
     love.graphics.print("Health: " .. self.health, player_hud.x + 10, player_hud.y + 10)
+    
+    love.graphics.setColor(1, 1, 0)
+    love.graphics.print("Money: " .. self.money, player_hud.x + healthWidth + 30, player_hud.y + 10)
+    love.graphics.setColor(1, 1, 1)
 end
 
 function Player:shoot()

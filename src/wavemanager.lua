@@ -7,12 +7,20 @@ WaveManager.__index = WaveManager
 
 local enemyTypes = {
     small = {
-        health = 2,
+        health = 1,
         sprite  = "assets/sprites/enemy1.png",
         speed = 200,
         width = 32,
         height = 32,
         moneyReward = 1,
+    },
+    small_rare = {
+        health = 3,
+        sprite  = "assets/sprites/enemy2.png",
+        speed = 180,
+        width = 32,
+        height = 32,
+        moneyReward = 5,
     },
     boss = {
         health = 10,
@@ -47,8 +55,15 @@ function WaveManager:spawnWave(count)
         for i = 1, count do
             local x = love.math.random(util.windowWidth, util.windowWidth + 500)
             local y = love.math.random(0, util.windowHeight - 100)
-            -- TODO: add some randomness to type of enemy spawned
-            table.insert(self.enemies, Enemy:new(x, y, enemyTypes.small))
+
+            local enemyType
+            if love.math.random(5) == 5 then
+                enemyType = enemyTypes.small_rare
+            else
+                enemyType = enemyTypes.small
+            end
+
+            table.insert(self.enemies, Enemy:new(x, y, enemyType))
         end
     end
 end
@@ -97,6 +112,7 @@ function WaveManager:drawWave()
     end
 
     love.graphics.print("Wave: " .. self.currentWave, 5, 0)
+    love.graphics.print("Enemies: " .. tostring(#self.enemies), 5, 20)
 end
 
 function WaveManager:startWaves()
@@ -107,10 +123,6 @@ end
 function WaveManager:stopWaves()
     self.wavePaused = true
     self.waveTimer = self.waveTimer
-end
-
-function WaveManager:getEnemies()
-    return self.enemies
 end
 
 function WaveManager:drawHud()
