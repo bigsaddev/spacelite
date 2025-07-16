@@ -12,7 +12,7 @@ local enemyTypes = {
         speed = 200,
         width = 32,
         height = 32,
-        moneyReward = 1,
+        reward = 1,
     },
     small_rare = {
         health = 3,
@@ -20,7 +20,7 @@ local enemyTypes = {
         speed = 180,
         width = 32,
         height = 32,
-        moneyReward = 5,
+        reward = 2,
     },
     boss = {
         health = 10,
@@ -28,8 +28,8 @@ local enemyTypes = {
         speed = 100,
         width = 64,
         height = 64,
-        moneyReward = 10,
-    },   
+        reward = 10,
+    },
 }
 
 function WaveManager:new()
@@ -45,7 +45,7 @@ end
 
 function WaveManager:spawnWave(count)
     self.currentWave = self.currentWave + 1
-    
+
     if self.currentWave % 5 == 0 then
         -- Spawn one boss
         local x = love.math.random(util.windowWidth, util.windowWidth + 500)
@@ -71,10 +71,9 @@ end
 function WaveManager:updateWave(dt, player)
     for i = #self.enemies, 1, -1 do
         local enemy = self.enemies[i]
-        
         if enemy then
             enemy:update(dt)
-            
+
             local removeEnemy = false
 
             -- Remove off screen enemies and damage player
@@ -84,9 +83,9 @@ function WaveManager:updateWave(dt, player)
             -- Remove dead enemies -> increase money?
             elseif enemy.isDead then
                 removeEnemy = true
-                player:receiveMoney(enemyTypes.small.moneyReward) -- useless for now, also weird
+                player:receiveMoney(enemy.reward)
             end
-            
+
             if removeEnemy then
                 table.remove(self.enemies, i)
             end

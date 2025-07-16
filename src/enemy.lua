@@ -16,7 +16,8 @@ function Enemy:new(x, y, options)
         height = options.height or 32,
         sprite = sprite,
         isDead = false,
-        health = options.health or 3
+        health = options.health or 3,
+        reward = options.reward,
     }
     setmetatable(obj, self)
     return obj
