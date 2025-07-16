@@ -5,6 +5,17 @@ local util  = require("src.util")
 local WaveManager = {}
 WaveManager.__index = WaveManager
 
+local enemyTypes = {
+    small = {
+        health = 1,
+        sprite  = "assets/sprites/enemy1.png",
+        speed = 200,
+        width = 32,
+        height = 32,
+        moneyReward = 1,
+    }
+}
+
 function WaveManager:new()
     local obj = {
         waveTimer = 3, -- TODO: change back to something better
@@ -20,7 +31,8 @@ function WaveManager:spawnWave(count)
     for i = 1, count do
         local x = love.math.random(util.windowWidth, util.windowWidth + 500)
         local y = love.math.random(0, util.windowHeight - 100)
-        table.insert(self.enemies, Enemy:new(x, y))
+        -- TODO: add some randomness to type of enemy spawned
+        table.insert(self.enemies, Enemy:new(x, y, enemyTypes.small))
     end
     self.currentWave = self.currentWave + 1
 end

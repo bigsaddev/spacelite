@@ -33,6 +33,7 @@ function Player:new(x, y)
         fireCooldown = 0.2,
         timeSinceLastShot = 0,
         health = 3,
+        money = 0,
     }
     setmetatable(obj, Player)
     return obj
@@ -101,6 +102,10 @@ end
 
 function Player:takeDamage(amount)
     self.health = self.health - amount
+end
+
+function Player:receiveMoney(amount)
+    self.money = self.money + amount
 end
 
 return Player

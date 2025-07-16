@@ -26,7 +26,6 @@ function Bullet:update(dt, enemies)
 
     for _, enemy in ipairs(enemies) do
         if not enemy.isDead and util.collidesWithRect(self, enemy) then
-            self.isDead = true
             enemy:takeDamage(self.damage)
             break
         end

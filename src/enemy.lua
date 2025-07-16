@@ -3,16 +3,18 @@
 local Enemy = {}
 Enemy.__index = Enemy
 
-function Enemy:new(x, y, w, h)
+function Enemy:new(x, y, options)
+    options = options or {}
+
     local obj = {
         x = x or 0,
         y = y or 0,
-        speed = 600,
-        width = w or 32,
-        height = h or 32,
-        sprite = love.graphics.newImage("assets/sprites/enemy1.png"),
+        speed = options.speed or 600,
+        width = options.width or 32,
+        height = options.height or 32,
+        sprite = love.graphics.newImage(options.sprite or "assets/sprites/enemy1.png"),
         isDead = false,
-        health = 1
+        health = options.health or 1
     }
     setmetatable(obj, self)
     return obj
