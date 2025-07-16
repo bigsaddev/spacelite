@@ -50,9 +50,10 @@ function WaveManager:updateWave(dt, player)
             if enemy.x + enemy.width < 0 then
                 player:takeDamage(1)
                 removeEnemy = true
-            -- Remove dead enemies
+            -- Remove dead enemies -> increase money?
             elseif enemy.isDead then
                 removeEnemy = true
+                player:receiveMoney(enemyTypes.small.moneyReward) -- useless for now, also weird
             end
             
             if removeEnemy then
