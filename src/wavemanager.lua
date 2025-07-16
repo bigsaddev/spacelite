@@ -7,13 +7,21 @@ WaveManager.__index = WaveManager
 
 local enemyTypes = {
     small = {
-        health = 3,
+        health = 2,
         sprite  = "assets/sprites/enemy1.png",
         speed = 200,
         width = 32,
         height = 32,
         moneyReward = 1,
-    }
+    },
+    boss = {
+        health = 10,
+        sprite  = "assets/sprites/boss.png",
+        speed = 100,
+        width = 64,
+        height = 64,
+        moneyReward = 10,
+    },   
 }
 
 function WaveManager:new()
@@ -28,13 +36,21 @@ function WaveManager:new()
 end
 
 function WaveManager:spawnWave(count)
-    for i = 1, count do
+    self.currentWave = self.currentWave + 1
+    
+    if self.currentWave % 5 == 0 then
+        -- Spawn one boss
         local x = love.math.random(util.windowWidth, util.windowWidth + 500)
         local y = love.math.random(0, util.windowHeight - 100)
-        -- TODO: add some randomness to type of enemy spawned
-        table.insert(self.enemies, Enemy:new(x, y, enemyTypes.small))
+        table.insert(self.enemies, Enemy:new(x, y, enemyTypes.boss))
+    else
+        for i = 1, count do
+            local x = love.math.random(util.windowWidth, util.windowWidth + 500)
+            local y = love.math.random(0, util.windowHeight - 100)
+            -- TODO: add some randomness to type of enemy spawned
+            table.insert(self.enemies, Enemy:new(x, y, enemyTypes.small))
+        end
     end
-    self.currentWave = self.currentWave + 1
 end
 
 function WaveManager:updateWave(dt, player)
