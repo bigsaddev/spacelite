@@ -6,13 +6,15 @@ Enemy.__index = Enemy
 function Enemy:new(x, y, options)
     options = options or {}
 
+    local sprite = love.graphics.newImage(options.sprite)
+
     local obj = {
         x = x or 0,
         y = y or 0,
         speed = options.speed or 200,
         width = options.width or 32,
         height = options.height or 32,
-        sprite = love.graphics.newImage(options.sprite or "assets/sprites/enemy1.png"),
+        sprite = sprite,
         isDead = false,
         health = options.health or 3
     }
@@ -29,7 +31,6 @@ local healthSpacing = 2
 
 function Enemy:draw()
     if not self.isDead then
-        love.graphics.setColor(1, 1, 1)
         love.graphics.draw(self.sprite, self.x, self.y)
 
         -- Calculate total width of all health boxes

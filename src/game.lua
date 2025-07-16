@@ -19,7 +19,7 @@ function Game:update(dt)
 end
 
 function Game:draw()
-    love.graphics.setBackgroundColor(0.5, 0.5, 0.5)
+    love.graphics.setBackgroundColor(0, 0, 0)
     self.player:draw()
 
     -- Draws the enemies in waves

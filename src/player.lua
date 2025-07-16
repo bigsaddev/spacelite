@@ -23,7 +23,7 @@ function Player:new(x, y)
     local obj = {
         x = x or 0,
         y = y or 0,
-        speed = 300,
+        speed = 350,
         width = 32,
         height = 32,
         sprite = love.graphics.newImage("assets/sprites/player.png"),

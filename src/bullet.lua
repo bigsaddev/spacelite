@@ -4,6 +4,8 @@ local Bullet = {}
 Bullet.__index = Bullet
 
 function Bullet:new(x, y, speed)
+    local sprite = love.graphics.newImage("assets/sprites/bullet.png")
+
     local obj = {
         x = x,
         y = y,
@@ -11,6 +13,7 @@ function Bullet:new(x, y, speed)
         height = 10,
         speed = speed,
         isDead = false,
+        sprite = sprite,
         damage = 1
     }
     setmetatable(obj, Bullet)
@@ -34,9 +37,7 @@ function Bullet:update(dt, enemies)
 end
 
 function Bullet:draw()
-    love.graphics.setColor(1, 0, 0)
-    love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
-    love.graphics.setColor(1, 1, 1)
+    love.graphics.draw(self.sprite, self.x, self.y)
 end
 
 return Bullet
