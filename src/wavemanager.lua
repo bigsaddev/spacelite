@@ -7,7 +7,7 @@ WaveManager.__index = WaveManager
 
 local enemyTypes = {
     small = {
-        health = 1,
+        health = 3,
         sprite  = "assets/sprites/enemy1.png",
         speed = 200,
         width = 32,
