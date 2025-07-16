@@ -95,8 +95,8 @@ function Player:drawHud()
 end
 
 function Player:shoot()
-    local bulletX = self.x + self.width - 8
-    local bulletY = self.y + self.height / 2 - 2
+    local bulletX = self.x + self.width - 5
+    local bulletY = self.y + self.height / 2 - 5
     table.insert(self.bullets, Bullet:new(bulletX, bulletY, self.bulletSpeed))
 end
 

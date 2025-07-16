@@ -8,7 +8,7 @@ function Bullet:new(x, y, speed)
         x = x,
         y = y,
         width = 10,
-        height = 4,
+        height = 10,
         speed = speed,
         isDead = false,
         damage = 1
@@ -26,6 +26,7 @@ function Bullet:update(dt, enemies)
 
     for _, enemy in ipairs(enemies) do
         if not enemy.isDead and util.collidesWithRect(self, enemy) then
+            self.isDead = true
             enemy:takeDamage(self.damage)
             break
         end
@@ -33,7 +34,9 @@ function Bullet:update(dt, enemies)
 end
 
 function Bullet:draw()
+    love.graphics.setColor(1, 0, 0)
     love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
+    love.graphics.setColor(1, 1, 1)
 end
 
 return Bullet
