@@ -6,9 +6,6 @@ local WaveManager = require("src.wavemanager")
 local Game = {}
 
 function Game:load()
-    love.math.setRandomSeed(os.time())
-    GameFont = love.graphics.newFont("assets/fonts/PixelifySans-Regular.ttf", 24)
-    love.graphics.setFont(GameFont)
     self.player = Player:new(100, 100)
     self.wm = WaveManager:new()
 end

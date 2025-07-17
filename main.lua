@@ -1,5 +1,4 @@
 -- main.lua
-local Game = require("states.game")
 local StateManager = require("statemanager")
 
 function love.load()

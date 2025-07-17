@@ -1,9 +1,12 @@
 local StateManager = require("statemanager")
+local util         = require("src.util")
 
 local Menu = {}
 
 function Menu:enter()
-    print("Entered Menu")
+    love.math.setRandomSeed(os.time())
+    GameFont = love.graphics.newFont("assets/fonts/PixelifySans-Regular.ttf", 24)
+    love.graphics.setFont(GameFont)
 end
 
 function Menu:update(dt)
@@ -11,7 +14,8 @@ function Menu:update(dt)
 end
 
 function Menu:draw()
-    love.graphics.print("Main Menu", 400, 300)
+    local menuTextWidth = GameFont:getWidth("Main Menu")
+    love.graphics.print("Main Menu", util.halfWindowWidth - menuTextWidth / 2, 50)
 end
 
 function Menu:keypressed(key)
