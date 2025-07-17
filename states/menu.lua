@@ -1,3 +1,5 @@
+local StateManager = require("statemanager")
+
 local Menu = {}
 
 function Menu:enter()
@@ -15,7 +17,7 @@ end
 function Menu:keypressed(key)
     if key == "return" then
         -- Change to game state
-        require("stateManager"):changeState("game")
+        StateManager:changeState("game")
     end
     if key == "escape" then
         love.event.quit()

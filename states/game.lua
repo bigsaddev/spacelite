@@ -13,6 +13,11 @@ function Game:load()
     self.wm = WaveManager:new()
 end
 
+function Game:enter()
+    print("boop")
+    self:load() -- probably load stuff earlier than this
+end
+
 function Game:update(dt)
     self.player:update(dt, self.wm.enemies)
     self.wm:updateWave(dt, self.player)
