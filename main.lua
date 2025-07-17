@@ -1,16 +1,17 @@
 -- main.lua
-local Game = require("src.game")
+local Game = require("states.game")
+local StateManager = require("statemanager")
 
 function love.load()
-    Game:load()
+    StateManager:changeState("menu")
 end
 function love.update(dt)
-    Game:update(dt)
+    StateManager:update(dt)
 end
 function love.draw()
-    Game:draw()
+    StateManager:draw()
 end
 
 function love.keypressed(key)
-    Game:keypressed(key)
+    StateManager:keypressed(key)
 end
