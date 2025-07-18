@@ -13,6 +13,7 @@ function Menu:update(dt)
     -- update Menu logic
 end
 
+-- TODO: IMPLEMENT SEXY MENU
 function Menu:draw()
     local menuTextWidth = GameFont:getWidth("Main Menu")
     love.graphics.print("Main Menu", util.halfWindowWidth - menuTextWidth / 2, 50)

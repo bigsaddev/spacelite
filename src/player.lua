@@ -19,6 +19,7 @@ local player_hud = {
     height = 50
 }
 
+local glow = love.graphics.newShader("shader/glow.glsl")
 function Player:new(x, y)
     local obj = {
         x = x or 0,
@@ -35,6 +36,11 @@ function Player:new(x, y)
         health = 3,
         money = 0,
     }
+
+    glow:send("glowColor", {1.0, 0.5, 1.0, 1.0}) -- orange glow
+    glow:send("radius", 1)
+    glow:send("textureSize", {32, 32})
+
     setmetatable(obj, Player)
     return obj
 end
@@ -55,7 +61,9 @@ end
 
 function Player:draw()
     self:drawHud()
+    love.graphics.setShader(glow)
     love.graphics.draw(self.sprite, self.x, self.y, 0, self.scale)
+    love.graphics.setShader()
     -- player bounds for debugging
     -- love.graphics.rectangle("line", player_bounds.x, player_bounds.y, player_bounds.width, player_bounds.height)
 

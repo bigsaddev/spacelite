@@ -2,11 +2,12 @@
 
 local Player = require("src.player")
 local WaveManager = require("src.wavemanager")
+local util        = require("src.util")
 
 local Game = {}
 
 function Game:load()
-    self.player = Player:new(100, 100)
+    self.player = Player:new(100, util.halfWindowHeight-32)
     self.wm = WaveManager:new()
 end
 
